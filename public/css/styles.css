@@ -2,6 +2,14 @@ h1 {
     color: blue;
 }
 
+h2 {
+    color: rgb(65, 117, 65);
+}
+
+p {
+    color: purple;
+}
+
 img {
     width: 250px;
 }

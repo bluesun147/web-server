@@ -1,46 +1,46 @@
 const path = require('path');
 const express = require('express');
+const hbs = require('hbs');
 
 console.log(__dirname);
 
 const app = express();
 const publicDirecPath = path.join(__dirname, '../public');
+const viewsPath = path.join(__dirname, '../templates/views');
+const partialsPath = path.join(__dirname, '../templates/partials');
+
 console.log(publicDirecPath);
 
+// setup hbs engine and views location
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, '../views'));
+// define path for Express config
+app.set('views', viewsPath);
 
+hbs.registerPartials(partialsPath); // partial 사용하기 위해
+
+// setup static directory to serve
 app.use(express.static(publicDirecPath));
 
-app.get('', (req, res) => {
+app.get('', (req, res) => { // root. 처음 페이지
     res.render('index', {
-        title: 'weather App',
-        name: 'eric',
+        title: 'Weather',
+        name: 'Chan',
     });
 });
 
 app.get('/about', (req, res) => {
     res.render('about', {
-        title: 'About page',
-        name: 'eric',
+        title: 'About',
+        name: 'Chan',
     });
 })
 
 app.get('/help', (req, res) => {
     res.render('help', {
-        title: 'Help page!',
-        name: 'eric',
+        helpText: 'This is some helpful text.',
+        title: 'Help',
+        name: 'Chan'
     })
-})
-
-app.get('/help', (req, res) => {
-    res.send([{
-        name: 'eric',
-        age: 24
-    }, {
-        name: 'tom',
-        age: 30
-    }]);
 })
 
 app.get('/weather', (req, res) => {
