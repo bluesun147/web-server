@@ -7,7 +7,31 @@ const app = express();
 const publicDirecPath = path.join(__dirname, '../public');
 console.log(publicDirecPath);
 
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, '../views'));
+
 app.use(express.static(publicDirecPath));
+
+app.get('', (req, res) => {
+    res.render('index', {
+        title: 'weather App',
+        name: 'eric',
+    });
+});
+
+app.get('/about', (req, res) => {
+    res.render('about', {
+        title: 'About page',
+        name: 'eric',
+    });
+})
+
+app.get('/help', (req, res) => {
+    res.render('help', {
+        title: 'Help page!',
+        name: 'eric',
+    })
+})
 
 app.get('/help', (req, res) => {
     res.send([{
@@ -18,10 +42,6 @@ app.get('/help', (req, res) => {
         age: 30
     }]);
 })
-
-// app.get('/about', (req, res) => {
-//     res.send('<h1>About page!</h1>');
-// }) 
 
 app.get('/weather', (req, res) => {
     res.send({
