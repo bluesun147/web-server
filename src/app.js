@@ -50,6 +50,22 @@ app.get('/weather', (req, res) => {
     });
 })
 
+app.get('/help/*', (req, res) => {
+    res.render('404', {
+        title: '404 Help',
+        error: 'Help article not found.',
+        name: 'Chan',
+    });
+})
+
+app.get('*', (req, res) => { // * : 제외한 전부. 마지막에 와야 함.
+    res.render('404', {
+        title: '404',
+        error: 'Page not found.',
+        name: 'Chan',
+    })
+})
+
 app.listen(3000, () => {
     console.log('server is up on port 3000.');
 })
