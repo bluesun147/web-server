@@ -1,6 +1,8 @@
 const path = require('path');
 const express = require('express');
 const hbs = require('hbs');
+const forecast = require('./utils/forecast');
+const geocode = require('./utils/geocode');
 
 console.log(__dirname);
 
@@ -43,11 +45,57 @@ app.get('/help', (req, res) => {
     })
 })
 
+// app.get('/weather', (req, res) => {
+//     if (!req.query.address) {
+//         return res.send({
+//             error: 'You must provide address!'
+//         }) 
+//     }
+//     res.send({
+//         forecast: 'sunny',
+//         location: 'Seoul',
+//         address: req.query.address
+//     });
+// })
+
 app.get('/weather', (req, res) => {
+    if (!req.query.address) {
+        return res.send({
+            error: 'You must provide address!'
+        }) 
+    }
+
+    geocode(req.query.address, (error, {latitude, longitude, location}={}) => {
+        if (error) {
+            return res.send({error}) // 원래 error: error인데 이름 같아서 short hand
+        }
+        forecast(latitude, longitude, (error, forecastData) => {
+            if (error) {
+                return res.send({
+                    //error: 'You must provide address!'
+                    error
+                })
+            }
+            res.send({
+                forecast: forecastData,
+                location, // location: location,
+                address: req.query.address + "(내가 query string으로 입력한 값)"
+            });
+        })
+    })    
+})
+
+app.get('/products', (req, res) => {
+    if (!req.query.search) {
+        return res.send({
+            error: 'You must provide search term!'
+        })
+    }
+
+    console.log(req.query.search);
     res.send({
-        forecast: 'sunny',
-        location: 'Seoul'
-    });
+        products: []
+    })
 })
 
 app.get('/help/*', (req, res) => {
