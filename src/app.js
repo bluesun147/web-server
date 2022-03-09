@@ -65,7 +65,7 @@ app.get('/weather', (req, res) => {
         }) 
     }
 
-    geocode(req.query.address, (error, {latitude, longitude, location}={}) => {
+    geocode(req.query.address, (error, {latitude, longitude, location}={}) => { // {} is empty object default value.
         if (error) {
             return res.send({error}) // 원래 error: error인데 이름 같아서 short hand
         }
