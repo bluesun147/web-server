@@ -18,7 +18,8 @@ weatherForm.addEventListener('submit', (e) => {
     messageOne.textContent = 'Loading...';
     messageTwo.textContent = '';
 
-    fetch(`http://localhost:3000/weather?address=${location}`)
+    //fetch(`http://localhost:3000/weather?address=${location}`)
+    fetch(`/weather?address=${location}`) // templates의 header, footer 처럼
     .then((response) => {
         response.json().then((data) => { // json()은 json을 oject로 parse. JSON.paese()는 sync. 같은 역할. json()은 async
             if (data.error) {

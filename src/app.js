@@ -7,6 +7,9 @@ const geocode = require('./utils/geocode');
 console.log(__dirname);
 
 const app = express();
+
+const port = process.env.PORT || 3000; // heroku가 제공하는 port. 없으면 3000 (locally)
+
 const publicDirecPath = path.join(__dirname, '../public');
 const viewsPath = path.join(__dirname, '../templates/views');
 const partialsPath = path.join(__dirname, '../templates/partials');
@@ -114,12 +117,10 @@ app.get('*', (req, res) => { // * : 제외한 전부. 마지막에 와야 함.
     })
 })
 
-app.listen(3000, () => {
-    console.log('server is up on port 3000.');
-})
+// app.listen(3000, () => {
+//     console.log('server is up on port 3000.');
+// })
 
-// app.com
-// app.com/help
-// app.com/about
-// have one domain, all run on single express server.
-// multiple routes.
+app.listen(port, () => {
+    console.log(`server is up on port ${port}.`);
+})
