@@ -29,7 +29,9 @@ const forecast = (latitude, longitude, callback) => {
         } else {
             const currD = body.current.temperature; // 현재 온도
             const feelslikeD = body.current.feelslike; // 체감 온도
-            callback(undefined, `${body.current.weather_descriptions[0]}, It is currently ${currD} degree, feels like ${feelslikeD} degree out.`);
+            const humidity = body.current.humidity;
+            callback(undefined, `${body.current.weather_descriptions[0]}, It is currently ${currD} degree, feels like ${feelslikeD} degree out. Humidity is ${humidity} percent.`);
+            //callback(body.current);
         }
     })
 }

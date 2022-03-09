@@ -26,11 +26,18 @@ weatherForm.addEventListener('submit', (e) => {
                 console.log(data.error);
                 messageOne.textContent = data.error;
             } else {
-                messageOne.textContent = `${data.location}`
+                if (data.location.includes('South Korea')) {
+                    messageOne.textContent = `${data.location} 🇰🇷`
+                } else if (data.location.includes('United States')){
+                    messageOne.textContent = `${data.location} 🇺🇸`
+                } else {
+                    messageOne.textContent = `${data.location}`
+                }
                 messageTwo.textContent = `${data.forecast}`
                 console.log(`whole data :`, data);
                 console.log(`data.location : ${data.location}`);
                 console.log(`data.forecast : ${data.forecast}`);
+                console.log(`data.humidity : ${data.humidity}`);
             }
         })
     })
